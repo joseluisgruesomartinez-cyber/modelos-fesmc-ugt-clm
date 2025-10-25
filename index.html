@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -63,7 +62,6 @@
 
     .hidden { display: none; }
 
-    /* ✅ NUEVO: el resultado ahora es un div, no un textarea */
     #resultado {
       width: 100%;
       min-height: 200px;
@@ -73,7 +71,7 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       background: white;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     #resultado p { margin: 0.5em 0; }
@@ -93,7 +91,6 @@
     <nav id="indice"></nav>
     <section>
       <div id="formulario"></div>
-      <!-- ✅ CAMBIO 1: ahora resultado es un div para interpretar HTML -->
       <div id="resultado">Aquí aparecerá el texto generado...</div>
       <button id="btnCopiar" class="hidden">📋 Copiar texto</button>
       <button id="btnDescargar" class="hidden">⬇️ Descargar .txt</button>
@@ -116,4 +113,85 @@
       });
 
     const indice = document.getElementById("indice");
-    const formu
+    const formulario = document.getElementById("formulario");
+    const resultado = document.getElementById("resultado");
+    const btnCopiar = document.getElementById("btnCopiar");
+    const btnDescargar = document.getElementById("btnDescargar");
+
+    function generarIndice() {
+      indice.innerHTML = "";
+      ModelosData.forEach(m => {
+        const btn = document.createElement("button");
+        btn.textContent = m.nombre;
+        btn.onclick = () => mostrarFormulario(m);
+        indice.appendChild(btn);
+      });
+    }
+
+    function mostrarFormulario(modelo) {
+      formulario.innerHTML = `<h3>${modelo.nombre}</h3><p>${modelo.descripcion}</p>`;
+      modelo.campos.forEach((campo, i) => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = campo;
+        input.id = "campo" + i;
+        input.style.width = "100%";
+        input.style.marginBottom = "0.5rem";
+        input.style.padding = "0.5rem";
+        formulario.appendChild(input);
+      });
+
+      const btnGenerar = document.createElement("button");
+      btnGenerar.textContent = "Generar texto";
+      btnGenerar.onclick = () => generarTexto(modelo);
+      formulario.appendChild(btnGenerar);
+
+      const btnBlanco = document.createElement("button");
+      btnBlanco.textContent = "Generar modelo en blanco";
+      btnBlanco.onclick = () => generarTexto(modelo, true);
+      formulario.appendChild(btnBlanco);
+    }
+
+    function generarTexto(modelo, enBlanco = false) {
+      const datos = modelo.campos.map((_, i) => {
+        const valor = document.getElementById("campo" + i).value.trim();
+        return enBlanco || !valor ? "_____" : `<b>${valor}</b>`;
+      });
+
+      let textoHTML = modelo.texto.replace(/\$\{(\d+)\}/g, (_, i) => datos[i] || "_____");
+
+      // ✅ Mostrar HTML interpretado
+      resultado.innerHTML = textoHTML;
+
+      btnCopiar.classList.remove("hidden");
+      btnDescargar.classList.remove("hidden");
+    }
+
+    btnCopiar.onclick = () => {
+      const temp = document.createElement("textarea");
+      temp.value = resultado.innerText;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      temp.remove();
+      alert("Texto copiado ✅");
+    };
+
+    btnDescargar.onclick = () => {
+      const blob = new Blob([resultado.innerText], { type: "text/plain" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "modelo.txt";
+      a.click();
+    };
+
+    // Service Worker opcional (PWA)
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registrado"))
+        .catch(err => console.error("Error al registrar SW:", err));
+    }
+  </script>
+</body>
+</html>
+
