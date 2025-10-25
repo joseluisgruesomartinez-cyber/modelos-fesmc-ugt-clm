@@ -1,9 +1,83 @@
 [
   {
-    "id": 1,
-    "nombre": "Permiso por Matrimonio",
-    "descripcion": "Modelo de solicitud de permiso por matrimonio propio.",
-    "campos": ["Nombre del trabajador", "Empresa", "Fecha inicio", "Fecha fin"],
-    "texto": "Por la presente, yo, ${0}, trabajador/a de la empresa ${1}, solicito permiso por matrimonio desde el ${2} hasta el ${3} inclusive.\n\nAtentamente,\n${0}"
+    "nombre": "Permiso Parental (8 Semanas) - Art. 48.bis ET",
+    "descripcion": "Comunicación de disfrute de permiso parental conforme al art. 48.bis ET.",
+    "campos": [
+      "Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha de nacimiento del hijo/a",
+      "Fecha inicio 1", "Fecha fin 1", "Nº semanas 1", "Fecha inicio 2", "Fecha fin 2", "Nº semanas 2"
+    ],
+    "texto": "<p>A la Dirección de la empresa: <b>${0}</b></p><p>En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Comunicación de disfrute de Permiso Parental (Art. 48.bis ET)</p><p>Estimados Sres.:</p><p>D./Dña. <b>${3}</b>, con DNI/NIE <b>${4}</b>, comunico que, conforme al art. 48.bis del Estatuto de los Trabajadores, disfrutaré del permiso parental por cuidado de mi hijo/a nacido/a el <b>${5}</b> (menor de ocho años).</p><p><b>Períodos de disfrute solicitados:</b></p><ul><li>Del <b>${6}</b> al <b>${7}</b> (Total: <b>${8}</b> semanas).</li><li>Del <b>${9}</b> al <b>${10}</b> (Total: <b>${11}</b> semanas).</li></ul><p>Comunico con la antelación legal de diez días.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Solicitud de Adaptación de Puesto - Art. 25 LPRL",
+    "descripcion": "Petición de adaptación de puesto por especial sensibilidad.",
+    "campos": ["Nombre de la empresa", "Dirección del centro", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Informe médico o documentación"],
+    "texto": "<p>A la Dirección de Recursos Humanos: <b>${0}</b></p><p>Centro: <b>${1}</b> — En <b>${2}</b>, a <b>${3}</b></p><p><b>Asunto:</b> Solicitud de Adaptación de Puesto de Trabajo por Especial Sensibilidad</p><p>D./Dña. <b>${4}</b>, DNI/NIE <b>${5}</b>, solicito que el Servicio de Prevención proceda a:</p><ol><li>Reevaluación de mi situación personal y del puesto de trabajo.</li><li>Adopción de medidas de adaptación o, si fuera inviable, adscripción a puesto compatible.</li></ol><p>Adjunto: <b>${6}</b></p><p>Atentamente,<br>Fdo.: <b>${4}</b></p>"
+  },
+  {
+    "nombre": "Ausencia por Hospitalización de Recién Nacido - Art. 37.4 ET",
+    "descripcion": "Comunicación de ausencia por hospitalización de recién nacido.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha de inicio", "Hora inicio", "Hora fin"],
+    "texto": "<p>A la Dirección de RRHH: <b>${0}</b> — En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Comunicación de Ausencia por Hospitalización de Recién Nacido (Art. 37.4 ET)</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, comunico que, por hospitalización de mi hijo/a tras el parto, ejerceré el derecho a ausentarme una hora diaria conforme al art. 37.4 ET.</p><p><b>Periodo:</b> Desde <b>${5}</b> hasta alta médica.<br><b>Horario:</b> <b>${6}</b> — <b>${7}</b>.</p><p>Adjunto justificante hospitalario.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Ausencia para Exámenes Prenatales - Art. 37.3.f ET",
+    "descripcion": "Comunicación de ausencia retribuida para exámenes prenatales.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Día", "Hora inicio", "Hora fin", "Especificar cita"],
+    "texto": "<p>A la Dirección de RRHH: <b>${0}</b> — En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Comunicación de Ausencia Retribuida (Exámenes Prenatales)</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, comunico que el día <b>${5}</b> me ausentaré desde <b>${6}</b> hasta <b>${7}</b> para asistir a <b>${8}</b>.</p><p>Adjunto justificante de la citación médica.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Excedencia Voluntaria - Art. 46.2 ET",
+    "descripcion": "Solicitud de excedencia voluntaria por motivos personales.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha de antigüedad", "Duración", "Fecha de inicio", "Fecha prevista de reincorporación"],
+    "texto": "<p>A la Empresa: <b>${0}</b> — En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Solicitud de Excedencia Voluntaria (Art. 46.2 ET)</p><p>Yo, D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, con antigüedad desde <b>${5}</b>, solicito excedencia voluntaria por el periodo de <b>${6}</b> desde <b>${7}</b> hasta <b>${8}</b>.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p><p><i>Nota: Revisa tu convenio colectivo, ya que puede existir reserva de puesto de trabajo durante el primer año.</i></p>"
+  },
+  {
+    "nombre": "Permiso Retribuido para Formación - Art. 23.3 ET",
+    "descripcion": "Solicitud de permiso retribuido para formación o estudios.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Nombre del curso", "Número de horas", "Fecha inicio", "Fecha fin"],
+    "texto": "<p>A la Atención de RRHH: <b>${0}</b></p><p>En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Solicitud de Permiso Retribuido para Formación (Art. 23.3 ET)</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, solicito permiso retribuido para realizar el curso <b>${5}</b>, de <b>${6}</b> horas, del <b>${7}</b> al <b>${8}</b>.</p><p>Solicito respuesta por escrito en el plazo de una semana.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Preaviso Fin Permiso de Lactancia - Art. 37.4 y 34.8 ET",
+    "descripcion": "Preaviso de finalización del permiso de lactancia y retorno a jornada completa.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha finalización", "Fecha reincorporación"],
+    "texto": "<p>A RRHH: <b>${0}</b> — En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Preaviso de Finalización de Permiso de Lactancia y Retorno a Jornada Completa</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, comunico que finalizaré el permiso de lactancia el <b>${5}</b> y que a partir de <b>${6}</b> desempeñaré jornada ordinaria completa.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Acumulación de Jornadas de Lactancia - Art. 37.4 ET",
+    "descripcion": "Comunicación de acumulación de horas de lactancia en jornadas completas.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha inicio", "Fecha fin", "Número días laborables", "Total horas", "Número días completos"],
+    "texto": "<p>A RRHH: <b>${0}</b> — En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Comunicación de Acumulación de Permiso de Lactancia en Jornadas Completas</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, comunico que acumularé las horas de lactancia en jornadas completas durante el periodo <b>${5}</b> — <b>${6}</b>.</p><p><b>Cálculo:</b> <b>${7}</b> días × 1 hora = <b>${8}</b> → equivalen a <b>${9}</b> días de jornada.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Adaptación de Jornada - Art. 34.8 ET",
+    "descripcion": "Solicitud de adaptación de jornada laboral por conciliación familiar.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Puesto", "Fecha antigüedad", "Motivo", "Nueva jornada solicitada", "Fecha inicio", "Duración", "Documentación adjunta"],
+    "texto": "<p>A la Dirección de Recursos Humanos de <b>${0}</b></p><p>En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Solicitud de adaptación de jornada de trabajo (Art. 34.8 ET)</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, trabajador/a en el puesto de <b>${5}</b> desde <b>${6}</b>, solicito la adaptación de mi jornada laboral por motivos de conciliación familiar.</p><p><b>Motivo:</b> ${7}</p><p><b>Propuesta concreta:</b> Nueva jornada solicitada: ${8}</p><p><b>Fecha de inicio solicitada:</b> ${9} &nbsp; Duración: ${10}</p><p><b>Documentación adjunta:</b> ${11}</p><p>Quedo a disposición para reunirnos y acordar medidas alternativas. Ruego acusen recibo y comuniquen su decisión en el plazo legal.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Excedencia por Cuidado de Hijo/a - Art. 46.3 ET",
+    "descripcion": "Solicitud de excedencia por cuidado de hijo/a.",
+    "campos": ["Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha nacimiento", "Duración", "Fecha inicio"],
+    "texto": "<p>En <b>${0}</b>, a <b>${1}</b></p><p><b>Asunto:</b> Solicitud de Excedencia por Cuidado de Hijo/a (Art. 46.3 ET)</p><p>D./Dña. <b>${2}</b>, DNI/NIE <b>${3}</b>, solicito excedencia por cuidado de hijo/a nacida/o el <b>${4}</b>, por un periodo de <b>${5}</b> desde <b>${6}</b>.</p><p>Atentamente,<br>Fdo.: <b>${2}</b></p>"
+  },
+  {
+    "nombre": "Prórroga Excedencia por Cuidado de Familiar - Art. 46.3 ET",
+    "descripcion": "Solicitud de prórroga de excedencia por cuidado de familiar.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha inicio original", "Parentesco", "Duración", "Fecha inicio prórroga"],
+    "texto": "<p>A RRHH: <b>${0}</b> — En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Solicitud de Prórroga de Excedencia por Cuidado de Familiar</p><p>D./Dña. <b>${3}</b>, DNI/NIE <b>${4}</b>, solicito prórroga de la excedencia iniciada el <b>${5}</b> para el cuidado de mi <b>${6}</b>, por un periodo adicional de <b>${7}</b> desde <b>${8}</b>.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Reducción de Jornada por Guarda Legal - Art. 37.6 ET",
+    "descripcion": "Solicitud de reducción de jornada por guarda legal o cuidado de familiar.",
+    "campos": ["Nombre de la empresa", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fracción reducción", "Hora inicio", "Hora fin", "Fecha inicio"],
+    "texto": "<p>A la Dirección de RRHH de la empresa <b>${0}</b></p><p>En <b>${1}</b>, a <b>${2}</b></p><p><b>Asunto:</b> Solicitud de Reducción de Jornada por Guarda Legal (Art. 37.6 ET)</p><p>D./Dña. <b>${3}</b>, con DNI <b>${4}</b>, solicito la reducción de jornada, con reducción proporcional del salario, al amparo del artículo 37.6 del Estatuto de los Trabajadores por razones de guarda legal.</p><ul><li>La reducción solicitada será de <b>${5}</b> de la jornada diaria.</li><li>Horario de trabajo: De <b>${6}</b> a <b>${7}</b>.</li><li>Fecha de inicio: <b>${8}</b>.</li></ul><p>Les comunico esta solicitud con el preaviso mínimo de quince días.</p><p>Atentamente,<br>Fdo.: <b>${3}</b></p>"
+  },
+  {
+    "nombre": "Permiso por Nacimiento y Cuidado del Menor - Art. 48.4 ET",
+    "descripcion": "Solicitud de permiso por nacimiento o adopción de hijo/a (19 semanas).",
+    "campos": ["Nombre de la empresa", "Dirección", "Localidad", "Fecha", "Nombre completo", "DNI/NIE", "Fecha nacimiento", "Fecha inicio", "Fecha fin", "Períodos adicionales"],
+    "texto": "<p>A RRHH: <b>${0}</b><br><b>${1}</b> — <b>${2}</b></p><p>En <b>${2}</b>, a <b>${3}</b></p><p><b>Asunto:</b> Solicitud de Permiso por Nacimiento y Cuidado del Menor (19 Semanas)</p><p>D./Dña. <b>${4}</b>, DNI/NIE <b>${5}</b>, comunico el nacimiento/adopción de mi hijo/a el <b>${6}</b> y solicito el permiso de 19 semanas conforme al art. 48.4 ET.</p><p><b>Opción 1 — Disfrute ininterrumpido:</b><br>Inicio: <b>${7}</b> — Fin: <b>${8}</b></p><p><b>Opción 2 — Disfrute discontinuo:</b><br>11 semanas restantes fraccionables hasta 12 meses: <b>${9}</b></p><p>Atentamente,<br>Fdo.: <b>${4}</b></p>"
   }
 ]
