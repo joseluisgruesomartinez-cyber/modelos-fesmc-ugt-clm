@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "nombre": "Permiso por Matrimonio",
+    "descripcion": "Modelo de solicitud de permiso por matrimonio propio.",
+    "campos": ["Nombre del trabajador", "Empresa", "Fecha inicio", "Fecha fin"],
+    "texto": "Por la presente, yo, ${0}, trabajador/a de la empresa ${1}, solicito permiso por matrimonio desde el ${2} hasta el ${3} inclusive.\n\nAtentamente,\n${0}"
+  }
+]

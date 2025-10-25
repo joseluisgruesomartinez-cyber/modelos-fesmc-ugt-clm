@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#b50000">
-  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#b50000" />
+  <link rel="manifest" href="manifest.json" />
   <title>MODELOS FeSMC UGT CLM</title>
 
   <style>
@@ -94,24 +94,20 @@
   </main>
 
   <script>
-    // === Datos base de ejemplo ===
-    const ModelosData = [
-      {
-        id: 1,
-        nombre: "Permiso por Matrimonio",
-        descripcion: "Modelo de solicitud por matrimonio propio.",
-        campos: ["Nombre del trabajador", "Empresa", "Fecha inicio", "Fecha fin"],
-        texto: d => `
-Por la presente, yo, ${d[0]}, trabajador/a de la empresa ${d[1]},
-solicito permiso por matrimonio desde el ${d[2]} hasta el ${d[3]} inclusive.
+    let ModelosData = [];
 
-Atentamente,
-${d[0]}
-`
-      }
-    ];
+    // === Cargar los modelos desde el JSON externo ===
+    fetch("modelos.json")
+      .then(res => res.json())
+      .then(data => {
+        ModelosData = data;
+        generarIndice();
+      })
+      .catch(err => {
+        console.error("Error al cargar modelos.json:", err);
+        document.getElementById("indice").innerHTML = "<p>Error al cargar modelos.</p>";
+      });
 
-    // === Lógica principal ===
     const indice = document.getElementById("indice");
     const formulario = document.getElementById("formulario");
     const resultado = document.getElementById("resultado");
@@ -140,15 +136,24 @@ ${d[0]}
         input.style.padding = "0.5rem";
         formulario.appendChild(input);
       });
+
       const btnGenerar = document.createElement("button");
       btnGenerar.textContent = "Generar texto";
       btnGenerar.onclick = () => generarTexto(modelo);
       formulario.appendChild(btnGenerar);
+
+      const btnBlanco = document.createElement("button");
+      btnBlanco.textContent = "Generar modelo en blanco";
+      btnBlanco.onclick = () => generarTexto(modelo, true);
+      formulario.appendChild(btnBlanco);
     }
 
-    function generarTexto(modelo) {
-      const datos = modelo.campos.map((_, i) => document.getElementById("campo" + i).value || "_____");
-      resultado.value = modelo.texto(datos);
+    function generarTexto(modelo, enBlanco = false) {
+      const datos = modelo.campos.map((_, i) => {
+        const valor = document.getElementById("campo" + i).value.trim();
+        return enBlanco || !valor ? "_____" : valor;
+      });
+      resultado.value = modelo.texto.replace(/\$\{(\d+)\}/g, (_, i) => datos[i] || "_____");
       btnCopiar.classList.remove("hidden");
       btnDescargar.classList.remove("hidden");
     }
@@ -165,8 +170,6 @@ ${d[0]}
       a.download = "modelo.txt";
       a.click();
     };
-
-    generarIndice();
 
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("service-worker.js")
