@@ -1,197 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#b50000" />
-  <link rel="manifest" href="manifest.json" />
-  <title>MODELOS FeSMC UGT CLM</title>
-
-  <style>
-    :root {
-      --color-bg: #f5f5f5;
-      --color-primary: #b50000;
-      --color-text: #222;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--color-bg);
-      color: var(--color-text);
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-
-    header {
-      background: var(--color-primary);
-      color: white;
-      text-align: center;
-      padding: 0.8rem;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 1rem;
-      overflow-y: auto;
-    }
-
-    nav {
-      margin-bottom: 1rem;
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      margin: 0.3rem 0;
-      padding: 0.8rem;
-      font-size: 1rem;
-      background: var(--color-primary);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover { opacity: 0.9; }
-
-    .hidden { display: none; }
-
-    #resultado {
-      width: 100%;
-      min-height: 200px;
-      margin-top: 1rem;
-      padding: 1rem;
-      font-size: 0.95rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background: white;
-      line-height: 1.6;
-    }
-
-    #resultado p { margin: 0.5em 0; }
-
-    @media (min-width: 800px) {
-      main { flex-direction: row; }
-      nav { width: 35%; }
-      section { flex: 1; margin-left: 1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Contenidos UGT</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <header>MODELOS FeSMC UGT CLM</header>
+    <div class="container">
+        <header>
+            <h1>📢 Buscador de Contenidos UGT</h1>
+            <p>Encuentra publicaciones sobre derechos laborales, sentencias y campañas sindicales</p>
+        </header>
+        
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="buscador" placeholder="🔍 Buscar por tema, palabra clave...">
+            </div>
+            <div class="filters">
+                <select id="categoriaFiltro">
+                    <option value="">Todas las categorías</option>
+                    <option value="Salud Laboral y Bienestar">Salud Laboral</option>
+                    <option value="Sentencias Judiciales y Derechos Legales">Sentencias Judiciales</option>
+                    <option value="Igualdad de Género y Diversidad">Igualdad de Género</option>
+                    <option value="Permisos, Jornadas y Conciliación">Permisos y Jornadas</option>
+                    <option value="Campañas y Noticias">Campañas y Noticias</option>
+                </select>
+                <button id="btnLimpiar">Limpiar filtros</button>
+            </div>
+        </div>
 
-  <main>
-    <nav id="indice"></nav>
-    <section>
-      <div id="formulario"></div>
-      <div id="resultado">Aquí aparecerá el texto generado...</div>
-      <button id="btnCopiar" class="hidden">📋 Copiar texto</button>
-      <button id="btnDescargar" class="hidden">⬇️ Descargar .txt</button>
-    </section>
-  </main>
+        <div class="stats">
+            <span id="contador">Cargando datos...</span>
+        </div>
 
-  <script>
-    let ModelosData = [];
+        <div id="resultados" class="results-container">
+            <div class="loading">📥 Cargando contenidos desde Google Sheets...</div>
+        </div>
+    </div>
 
-    // === Cargar modelos externos ===
-    fetch("modelos.json")
-      .then(res => res.json())
-      .then(data => {
-        ModelosData = data;
-        generarIndice();
-      })
-      .catch(err => {
-        console.error("Error al cargar modelos.json:", err);
-        document.getElementById("indice").innerHTML = "<p>Error al cargar modelos.</p>";
-      });
-
-    const indice = document.getElementById("indice");
-    const formulario = document.getElementById("formulario");
-    const resultado = document.getElementById("resultado");
-    const btnCopiar = document.getElementById("btnCopiar");
-    const btnDescargar = document.getElementById("btnDescargar");
-
-    function generarIndice() {
-      indice.innerHTML = "";
-      ModelosData.forEach(m => {
-        const btn = document.createElement("button");
-        btn.textContent = m.nombre;
-        btn.onclick = () => mostrarFormulario(m);
-        indice.appendChild(btn);
-      });
-    }
-
-    function mostrarFormulario(modelo) {
-      formulario.innerHTML = `<h3>${modelo.nombre}</h3><p>${modelo.descripcion}</p>`;
-      modelo.campos.forEach((campo, i) => {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.placeholder = campo;
-        input.id = "campo" + i;
-        input.style.width = "100%";
-        input.style.marginBottom = "0.5rem";
-        input.style.padding = "0.5rem";
-        formulario.appendChild(input);
-      });
-
-      const btnGenerar = document.createElement("button");
-      btnGenerar.textContent = "Generar texto";
-      btnGenerar.onclick = () => generarTexto(modelo);
-      formulario.appendChild(btnGenerar);
-
-      const btnBlanco = document.createElement("button");
-      btnBlanco.textContent = "Generar modelo en blanco";
-      btnBlanco.onclick = () => generarTexto(modelo, true);
-      formulario.appendChild(btnBlanco);
-    }
-
-    function generarTexto(modelo, enBlanco = false) {
-      const datos = modelo.campos.map((_, i) => {
-        const valor = document.getElementById("campo" + i).value.trim();
-        return enBlanco || !valor ? "_____" : `<b>${valor}</b>`;
-      });
-
-      let textoHTML = modelo.texto.replace(/\$\{(\d+)\}/g, (_, i) => datos[i] || "_____");
-
-      // ✅ Mostrar HTML interpretado
-      resultado.innerHTML = textoHTML;
-
-      btnCopiar.classList.remove("hidden");
-      btnDescargar.classList.remove("hidden");
-    }
-
-    btnCopiar.onclick = () => {
-      const temp = document.createElement("textarea");
-      temp.value = resultado.innerText;
-      document.body.appendChild(temp);
-      temp.select();
-      document.execCommand("copy");
-      temp.remove();
-      alert("Texto copiado ✅");
-    };
-
-    btnDescargar.onclick = () => {
-      const blob = new Blob([resultado.innerText], { type: "text/plain" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "modelo.txt";
-      a.click();
-    };
-
-    // Service Worker opcional (PWA)
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js")
-        .then(() => console.log("Service Worker registrado"))
-        .catch(err => console.error("Error al registrar SW:", err));
-    }
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
-
